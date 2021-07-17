@@ -1,0 +1,11 @@
+#ifndef ETHERHNET
+#define ETHERHNET
+
+#define PORT	 				8080
+#define SIZE_OF_RECEIVE_BUFFER_MAX  180224
+#define SIZE_OF_RECEIVE_BUFFER_CURRENT (8*1024)
+
+
+
+
+#endif
