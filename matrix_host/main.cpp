@@ -6,16 +6,12 @@
 int main(int argc, const char* argv[])
 {
     const cv::Mat input = cv::imread("/home/alex/matrix/matrix_host/test_image/grad.jpg", cv::IMREAD_COLOR); 
-    if(input.empty())
-    {
-        std::cout << "Image empty.\n";
-    }
-    else
+
+    if(!input.empty())
     {
         cv::imshow("test", input);
         cv::waitKey(0);
-    }
-    
+    }    
 
     return 0;
 }
