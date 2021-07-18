@@ -34,14 +34,14 @@ module dma_from_sdram
    	parameter WRITE_TO_DIST_THREE = 3'b101;
    	parameter WRITE_TO_DIST_FOUR = 3'b110;
 
-   reg [2:0] state = IDLE;
+  	reg [2:0] state = IDLE;
 
 	reg [63:0] read_data_from_sdram;
-	reg[28:0] reg_address;
+	reg [28:0] reg_address;
 	
 
 	reg [11:0] reg_dist_data;
-   reg [9:0]  reg_dist_address;
+   	reg [9:0]  reg_dist_address;
     
 	reg [31:0] reg_count_size;
 
@@ -52,7 +52,7 @@ module dma_from_sdram
    
     assign dist_address = reg_dist_address;
     assign dist_clk = clk;
-	 assign dist_data = reg_dist_data;	
+	assign dist_data = reg_dist_data;	
 	 	
 	  	 
 	assign write_enable = (state == WRITE_TO_DIST_ONE) || (state == WRITE_TO_DIST_TWO) || (state == WRITE_TO_DIST_THREE) || (state == WRITE_TO_DIST_FOUR);

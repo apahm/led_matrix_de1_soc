@@ -94,29 +94,29 @@ module DE1_SOC(
 );
 
 wire 				reset;
-wire  			bridge_waitrequest;      //           mm_bridge_0_m0.waitrequest
-wire	[31:0]	bridge_readdata;         //                         .readdatawire
+wire  				bridge_waitrequest;      //           mm_bridge_0_m0.waitrequest
+wire	[31:0]		bridge_readdata;         //                         .readdatawire
 wire				bridge_readdatavalid;    //                         .readdatavalid      //                         .burstcount
-wire	[31:0]	bridge_writedata;        //                         .writedata
-wire	[9:0]    bridge_address;          //                         .address
+wire	[31:0]		bridge_writedata;        //                         .writedata
+wire	[9:0]    	bridge_address;          //                         .address
 wire				bridge_write;            //                         .write
 wire				bridge_read;
 
 
 avalon_csr avalon_csr(
-		.clk(CLOCK_50),
-		.rst(reset), 
-		.mm_waitrequest(bridge_waitrequest),      //           mm_bridge_0_m0.waitrequest
-		.mm_readdata(bridge_readdata),         //                         .readdata
-		.mm_readdatavalid(bridge_readdatavalid),    //                         .readdatavalid
-		.mm_writedata(bridge_writedata),        //                         .writedata
-		.mm_address(bridge_address),          //                         .address
-		.mm_write(bridge_write),            //                         .write
-		.mm_read(bridge_read),   
-		.reg8(dist_dma),
-		.reg0(dma_start),
-		.reg1(begin_dma_address),
-		.reg2(size_of_buffer)
+	.clk(CLOCK_50),
+	.rst(reset), 
+	.mm_waitrequest(bridge_waitrequest),      //           mm_bridge_0_m0.waitrequest
+	.mm_readdata(bridge_readdata),         //                         .readdata
+	.mm_readdatavalid(bridge_readdatavalid),    //                         .readdatavalid
+	.mm_writedata(bridge_writedata),        //                         .writedata
+	.mm_address(bridge_address),          //                         .address
+	.mm_write(bridge_write),            //                         .write
+	.mm_read(bridge_read),   
+	.reg8(dist_dma),
+	.reg0(dma_start),
+	.reg1(begin_dma_address),
+	.reg2(size_of_buffer)
 );
 
 pll pll (
@@ -137,7 +137,7 @@ matrix matrix (
     .g1						(g1),
     .b1						(b1),
 	 
-	 .r2						(r2),
+	.r2						(r2),
     .g2						(g2),
     .b2						(b2),
     .r3						(r3),
@@ -168,7 +168,7 @@ wire [31:0] size_of_buffer;
 
 dma_from_sdram dma_from_sdram (
 	.clk(CLOCK_50),
-   .rst(reset),
+   	.rst(reset),
 	 
 	.start(dma_start),
 	.begin_address(begin_dma_address),
@@ -180,7 +180,7 @@ dma_from_sdram dma_from_sdram (
 	.sdram0_data_read(sdram_read),  
 	.sdram0_data_burstcount(sdram_burstcount),	
  
-   .dist_data(dist_dma),
+   	.dist_data(dist_dma),
 	.dist_address(dist_address),
 	.dist_clk(dist_clock),
 	.write_enable(write_enable),
@@ -196,74 +196,74 @@ ram_one ram_one(
 );
 
 hps_system hps_system (
-		.clk_clk(CLOCK_50),
+	.clk_clk(CLOCK_50),
 		
 		
 		
-		.hps_io_hps_io_emac1_inst_TXD0(HPS_ENET_TX_DATA[0]),  
-		.hps_io_hps_io_emac1_inst_TXD1(HPS_ENET_TX_DATA[1]),  
-		.hps_io_hps_io_emac1_inst_TXD2(HPS_ENET_TX_DATA[2]),  
-		.hps_io_hps_io_emac1_inst_TXD3(HPS_ENET_TX_DATA[3]),
+	.hps_io_hps_io_emac1_inst_TXD0(HPS_ENET_TX_DATA[0]),  
+	.hps_io_hps_io_emac1_inst_TXD1(HPS_ENET_TX_DATA[1]),  
+	.hps_io_hps_io_emac1_inst_TXD2(HPS_ENET_TX_DATA[2]),  
+	.hps_io_hps_io_emac1_inst_TXD3(HPS_ENET_TX_DATA[3]),
 	
 	
-		.hps_io_hps_io_emac1_inst_MDIO(HPS_ENET_MDIO),  
-		.hps_io_hps_io_emac1_inst_MDC(HPS_ENET_MDC),
+	.hps_io_hps_io_emac1_inst_MDIO(HPS_ENET_MDIO),  
+	.hps_io_hps_io_emac1_inst_MDC(HPS_ENET_MDC),
 	
-		.hps_io_hps_io_emac1_inst_RX_CTL(HPS_ENET_RX_DV),
-		.hps_io_hps_io_emac1_inst_TX_CTL(HPS_ENET_TX_EN),
+	.hps_io_hps_io_emac1_inst_RX_CTL(HPS_ENET_RX_DV),
+	.hps_io_hps_io_emac1_inst_TX_CTL(HPS_ENET_TX_EN),
 	
-		.hps_io_hps_io_emac1_inst_RX_CLK(HPS_ENET_RX_CLK),
-		.hps_io_hps_io_emac1_inst_TX_CLK(HPS_ENET_GTX_CLK),
+	.hps_io_hps_io_emac1_inst_RX_CLK(HPS_ENET_RX_CLK),
+	.hps_io_hps_io_emac1_inst_TX_CLK(HPS_ENET_GTX_CLK),
 	
-		.hps_io_hps_io_emac1_inst_RXD0(HPS_ENET_RX_DATA[0]),  
-		.hps_io_hps_io_emac1_inst_RXD1(HPS_ENET_RX_DATA[1]),  
-		.hps_io_hps_io_emac1_inst_RXD2(HPS_ENET_RX_DATA[2]),  
-		.hps_io_hps_io_emac1_inst_RXD3(HPS_ENET_RX_DATA[3]),
+	.hps_io_hps_io_emac1_inst_RXD0(HPS_ENET_RX_DATA[0]),  
+	.hps_io_hps_io_emac1_inst_RXD1(HPS_ENET_RX_DATA[1]),  
+	.hps_io_hps_io_emac1_inst_RXD2(HPS_ENET_RX_DATA[2]),  
+	.hps_io_hps_io_emac1_inst_RXD3(HPS_ENET_RX_DATA[3]),
 		
 		
-		
-		.hps_io_hps_io_sdio_inst_CMD(HPS_SD_CMD),    
-		.hps_io_hps_io_sdio_inst_D0(HPS_SD_DATA[0]),
-		.hps_io_hps_io_sdio_inst_D1(HPS_SD_DATA[1]),
-		.hps_io_hps_io_sdio_inst_D2(HPS_SD_DATA[2]),
-		.hps_io_hps_io_sdio_inst_D3(HPS_SD_DATA[3]),
-		.hps_io_hps_io_sdio_inst_CLK(HPS_SD_CLK),
-		
-		.hps_io_hps_io_uart0_inst_RX(HPS_UART_RX),    
-		.hps_io_hps_io_uart0_inst_TX(HPS_UART_TX),
+	
+	.hps_io_hps_io_sdio_inst_CMD(HPS_SD_CMD),    
+	.hps_io_hps_io_sdio_inst_D0(HPS_SD_DATA[0]),
+	.hps_io_hps_io_sdio_inst_D1(HPS_SD_DATA[1]),
+	.hps_io_hps_io_sdio_inst_D2(HPS_SD_DATA[2]),
+	.hps_io_hps_io_sdio_inst_D3(HPS_SD_DATA[3]),
+	.hps_io_hps_io_sdio_inst_CLK(HPS_SD_CLK),
+	
+	.hps_io_hps_io_uart0_inst_RX(HPS_UART_RX),    
+	.hps_io_hps_io_uart0_inst_TX(HPS_UART_TX),
 		 
-		.leds_external_connection_export(LEDR),
+	.leds_external_connection_export(LEDR),
 		
-		.memory_mem_a(HPS_DDR3_ADDR),                   
-		.memory_mem_ba(HPS_DDR3_BA),                  
-		.memory_mem_ck(HPS_DDR3_CK_P),                  
-		.memory_mem_ck_n(HPS_DDR3_CK_N),                
-		.memory_mem_cke(HPS_DDR3_CKE),                 
-		.memory_mem_cs_n(HPS_DDR3_CS_N),                
-		.memory_mem_ras_n(HPS_DDR3_RAS_N),               
-		.memory_mem_cas_n(HPS_DDR3_CAS_N),               
-		.memory_mem_we_n(HPS_DDR3_WE_N),                
-		.memory_mem_reset_n(HPS_DDR3_RESET_N),             
-		.memory_mem_dq(HPS_DDR3_DQ),                  
-		.memory_mem_dqs(HPS_DDR3_DQS_P),                 
-		.memory_mem_dqs_n(HPS_DDR3_DQS_N),               
-		.memory_mem_odt(HPS_DDR3_ODT),                 
-		.memory_mem_dm(HPS_DDR3_DM),                  
-		.memory_oct_rzqin(HPS_DDR3_RZQ),                
-		.mm_bridge_0_m0_waitrequest(bridge_waitrequest),      //           mm_bridge_0_m0.waitrequest
-		.mm_bridge_0_m0_readdata(bridge_readdata),         //                         .readdata
-		.mm_bridge_0_m0_readdatavalid(bridge_readdatavalid),    //                         .readdatavalid      //                         .burstcount
-		.mm_bridge_0_m0_writedata(bridge_writedata),        //                         .writedata
-		.mm_bridge_0_m0_address(bridge_address),          //                         .address
-		.mm_bridge_0_m0_write(bridge_write),            //                         .write
-		.mm_bridge_0_m0_read(bridge_read),             //                         
-		.reset_reset(reset),
-		.sdram0_data_address(sdram_address),             //              sdram0_data.address          //                         .burstcount
-		.sdram0_data_waitrequest(sdram_waitrequest),         //                         .waitrequest
-		.sdram0_data_readdata(sdram_readdata),            //                         .readdata
-		.sdram0_data_readdatavalid(sdram_readdatavalid),       //                         .readdatavalid
-		.sdram0_data_read(sdram_read),
-		.sdram0_data_burstcount(sdram_burstcount)
+	.memory_mem_a(HPS_DDR3_ADDR),                   
+	.memory_mem_ba(HPS_DDR3_BA),                  
+	.memory_mem_ck(HPS_DDR3_CK_P),                  
+	.memory_mem_ck_n(HPS_DDR3_CK_N),                
+	.memory_mem_cke(HPS_DDR3_CKE),                 
+	.memory_mem_cs_n(HPS_DDR3_CS_N),                
+	.memory_mem_ras_n(HPS_DDR3_RAS_N),               
+	.memory_mem_cas_n(HPS_DDR3_CAS_N),               
+	.memory_mem_we_n(HPS_DDR3_WE_N),                
+	.memory_mem_reset_n(HPS_DDR3_RESET_N),             
+	.memory_mem_dq(HPS_DDR3_DQ),                  
+	.memory_mem_dqs(HPS_DDR3_DQS_P),                 
+	.memory_mem_dqs_n(HPS_DDR3_DQS_N),               
+	.memory_mem_odt(HPS_DDR3_ODT),                 
+	.memory_mem_dm(HPS_DDR3_DM),                  
+	.memory_oct_rzqin(HPS_DDR3_RZQ),                
+	.mm_bridge_0_m0_waitrequest(bridge_waitrequest),      //           mm_bridge_0_m0.waitrequest
+	.mm_bridge_0_m0_readdata(bridge_readdata),         //                         .readdata
+	.mm_bridge_0_m0_readdatavalid(bridge_readdatavalid),    //                         .readdatavalid      //                         .burstcount
+	.mm_bridge_0_m0_writedata(bridge_writedata),        //                         .writedata
+	.mm_bridge_0_m0_address(bridge_address),          //                         .address
+	.mm_bridge_0_m0_write(bridge_write),            //                         .write
+	.mm_bridge_0_m0_read(bridge_read),             //                         
+	.reset_reset(reset),
+	.sdram0_data_address(sdram_address),             //              sdram0_data.address          //                         .burstcount
+	.sdram0_data_waitrequest(sdram_waitrequest),         //                         .waitrequest
+	.sdram0_data_readdata(sdram_readdata),            //                         .readdata
+	.sdram0_data_readdatavalid(sdram_readdatavalid),       //                         .readdatavalid
+	.sdram0_data_read(sdram_read),
+	.sdram0_data_burstcount(sdram_burstcount)
 );	
 
 
