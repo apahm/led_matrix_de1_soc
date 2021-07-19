@@ -19,7 +19,7 @@ module dma_from_sdram
 
 
 	output wire [9:0] dist_address,
-	output wire [11:0] dist_data,
+	output wire [47:0] dist_data,
 	output wire write_enable,
 	output wire dist_clk  
 

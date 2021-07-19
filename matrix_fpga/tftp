@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /home/alex/cyclone5_soc/DE1_SOC 
+
+sudo cp DE1_SOC.rbf /tftpboot/

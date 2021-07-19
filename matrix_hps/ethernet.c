@@ -38,7 +38,7 @@ int eth_init()
 
 int set_receive_buffer_size(int sockfd,unsigned int size_of_receive_buffer)
 {
-	if (setsockopt(sockfd, SOL_SOCKET, SO_RCVBUF, (const char*)(&size_of_receive_buffer), sizeof(size_of_receive_buffer)) != 0)
+	if (setsockopt(sockfd, SOL_SOCKET, SO_RCVBUFFORCE, (const char*)(&size_of_receive_buffer), sizeof(size_of_receive_buffer)) != 0)
 	{
 		printf("set_receive_buffer_size() failed: setsockopt failed: set recive buffer size.\n");
 		return -1;

@@ -1,24 +1,3 @@
-//=============================================================================================
-// SparkFun / Adafruit 32x32 LED Panel Driver
-// Copyright 2014 by Glen Akins.
-// All rights reserved.
-// 
-// Set editor width to 96 and tab stop to 4.
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//=============================================================================================
-
 module matrix
 (
 	input	wire			rst_n,
@@ -42,8 +21,14 @@ module matrix
 	output	reg		[2:0]	a,
 	output	reg				blank,
 	output	reg				sclk,
-	output	reg				latch
+	output	reg				latch,
+
+	output wire [9:0] mem_address,
+	output wire mem_clk,
+	output wire mem_write_enable,
+	input wire [47:0] mem_output_data
 );
+
 
 
 //---------------------------------------------------------------------------------------------
@@ -87,49 +72,14 @@ wire rd_r1_bit, rd_g1_bit, rd_b1_bit, rd_r0_bit, rd_g0_bit, rd_b0_bit;
 wire [3:0] rd_r3, rd_g3, rd_b3, rd_r2, rd_g2, rd_b2;
 wire rd_r3_bit, rd_g3_bit, rd_b3_bit, rd_r2_bit, rd_g2_bit, rd_b2_bit;
 
-//---------------------------------------------------------------------------------------------
-// memories
-//
-// rows  0 to 15 are in memory 0 at addresses    0-2047 (buffer 0) / 4096-6143
-// rows 16 to 31 are in memory 1 at addresses    0-2047 (buffer 0) / 4096-6143
-// rows 32 to 47 are in memory 0 at addresses 2048-4095 (buffer 0) / 6144-8191
-// rows 48 to 63 are in memory 1 at addresses 2048-4095 (buffer 0) / 6144-8192
 
-ram1 ram1
-(
-	.address(rd_addr),
-	.clock(clk),
-	.wren(0),
-	.q(rd_data[11:0])
-);
-ram2 ram2
-(
-	.address(rd_addr),
-	.clock(clk),
-	.wren(0),
-	.q(rd_data[23:12])
-);
-ram3 ram3
-(
-	.address(rd_addr),
-	.clock(clk),
-	.wren(0),
-	.q(rd_data[35:24])
-);
+assign mem_address = rd_addr;
+assign mem_clk = clk;
+assign mem_write_enable = 1'b0;
+assign rd_data = mem_output_data;
 
-ram4 ram4
-(
-	.address(rd_addr),
-	.clock(clk),
-	.wren(0),
-	.q(rd_data[47:36])
-);
-
-// turn current buffer, row, column, and bit number into a memory address
 assign rd_addr =  rd_col + rd_app;
 
-
-// turn read data into individual pixel bits
 assign rd_r3 = rd_data[47:44];
 assign rd_g3 = rd_data[43:40];
 assign rd_b3 = rd_data[39:36];
@@ -207,16 +157,16 @@ begin
 			// for 25MHz clock, use 480-1,  960-1, 1920-1, 3840-1 below
 			// for 50MHz clock, use 960-1, 1920-1, 3840-1, 7680-1 below
 			case (rd_bit)
-				0: timer <= 479;
-				1: timer <= 959;
-				2: timer <= 1919;
-				3: timer <= 3839;
+				0: timer <= 959;
+				1: timer <= 1919;
+				2: timer <= 3839;
+				3: timer <= 7679;
 			endcase
 			case (rd_bit)
-				0: blanktimer <= ( 479 * level) >> 8;
-				1: blanktimer <= ( 959 * level) >> 8;
-				2: blanktimer <= (1919 * level) >> 8;
-				3: blanktimer <= (3839 * level) >> 8;
+				0: blanktimer <= (959 * level) >> 8;
+				1: blanktimer <= (1919 * level) >> 8;
+				2: blanktimer <= (3839 * level) >> 8;
+				3: blanktimer <= (7679 * level) >> 8;
 			endcase
 		end
 		else
