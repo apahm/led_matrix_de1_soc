@@ -32,7 +32,7 @@ assign master_write_enable = mux ? (slave_1_write_enable) : (slave_0_write_enabl
 assign master_dist_clk = mux ? (slave_1_dist_clk) : (slave_0_dist_clk);
 
 
-assign slave_0_dist_out = mux ? (0) : (master_dist_out);
-assign slave_1_dist_out = 0;
+assign slave_1_dist_out = mux ? (master_dist_out) : (0);
+assign slave_0_dist_out = 0;
 
 endmodule

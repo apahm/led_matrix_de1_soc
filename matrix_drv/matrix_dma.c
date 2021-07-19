@@ -31,25 +31,32 @@ int fpga_add_rx_buffer(struct fpga_dev *fpga, uint32_t size)
     dma_addr = dma_addr / 8;
     size = size / 8;
 
-    /*
+    
     //*(uint64_t *)addr = 0x100020004000800;
     //printk("addr = 0x%p, value = 0x%llx\n",addr, *(uint64_t *)addr);
     
 
 
-    // Write DMA address to FPGA
+    //Write DMA address to FPGA
     printk( KERN_DEBUG "Write fpga dma_addr: register 0x4, dma_addr=0x%x\n",dma_addr);
     fpga_write_reg(fpga, 0x4, dma_addr);
 
     // Write size of buffer to FPGA
     printk( KERN_DEBUG "Write size of buffer to fpga. Register 0x8, value %d\n",size * 8);
-    fpga_write_reg(fpga, 0x8, 0x4);
+    fpga_write_reg(fpga, 0x8, size);
 
     // Write signal start to FPGA
-    printk( KERN_DEBUG "Write fpga start. Register: 0x0, value: 0x1; register: 0x0, value: 0x0\n");
-    fpga_write_reg(fpga, 0x0, 0x1);
-    fpga_write_reg(fpga, 0x0, 0x0);
-    */
+    //printk( KERN_DEBUG "Write fpga start. Register: 0x0, value: 0x1; register: 0x0, value: 0x0\n");
+    //fpga_write_reg(fpga, 0x0, 0x1);
+    //fpga_write_reg(fpga, 0x0, 0x0);
+
+
+    printk( KERN_DEBUG "Write matrix reset. Register 0x10, value = 1;\n");
+    fpga_write_reg(fpga, 0x10, 0x1);
+
+    printk( KERN_DEBUG "Write memory mux. Register 0xC, value = 0;\n");
+    fpga_write_reg(fpga, 0xC, 0x0);
+    
 	return 0;
 }
 

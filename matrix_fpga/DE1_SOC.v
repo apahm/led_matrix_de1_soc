@@ -123,6 +123,7 @@ wire [9:0] 	matrix_memory_address;
 wire matrix_memory_clock;
 
 wire mem_mux;
+wire matrix_rst;
 
 avalon_csr avalon_csr(
 	.clk(CLOCK_50),
@@ -137,7 +138,8 @@ avalon_csr avalon_csr(
 	.reg0(dma_start),
 	.reg1(begin_dma_address),
 	.reg2(size_of_buffer),
-	.reg3(mem_mux)
+	.reg3(mem_mux),
+	.reg4(matrix_rst)
 );
 
 pll pll (
@@ -148,7 +150,7 @@ pll pll (
 );
 
 matrix matrix (
-    .rst_n					(reset),
+    .rst_n					(matrix_rst),
     .clk					(CLOCK_50),
 
     .r0						(r0),
@@ -221,13 +223,13 @@ memory_mux memory_mux(
 	.slave_0_dist_clk(dist_clock), 
 
 	.slave_1_dist_out(matrix_memory_data),
-   	.slave_1_dist_address(matrix_memory_address),
+   .slave_1_dist_address(matrix_memory_address),
 	.slave_1_write_enable(matrix_write_enable),
 	.slave_1_dist_clk(matrix_memory_clock),  
 
 	.master_dist_out(ram_data_out),
-   	.master_dist_address(ram_address),
-	.master_dist_data(ram_data),
+   .master_dist_address(ram_address),
+	.master_dist_data(ram_data_in),
 	.master_write_enable(ram_wren),
 	.master_dist_clk(ram_clk),
 

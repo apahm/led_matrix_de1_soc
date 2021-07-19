@@ -13,7 +13,7 @@
 #define DRV_VERSION "0.0.1"
 #endif
 
-#define TX_BUF_SIZE (8)
+#define TX_BUF_SIZE (8 * 1024)
 
 
 struct fpga_dev {
