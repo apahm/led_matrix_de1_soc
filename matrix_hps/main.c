@@ -8,7 +8,7 @@
 #include <asm/ioctl.h>
 
 #include "fpga_ctrl.h"
-
+#include "test_buffer.h"
 
 int main()
 {
@@ -17,16 +17,73 @@ int main()
 
 	memset(one_frame_buffer,0,ONE_FRAME_SIZE_OF_MATRIX);
 
-    one_frame_buffer[0] = 0xF0F;
-    one_frame_buffer[1] = 0xF1F;
-    one_frame_buffer[2] = 0xF2F;
-    one_frame_buffer[3] = 0xFF0;
-    one_frame_buffer[4] = 0xFAF;
-    one_frame_buffer[5] = 0xFFF;
-    one_frame_buffer[6] = 0x0FF;
-    one_frame_buffer[7] = 0xFF1;
-	
+    //nayn_cat_buffer(one_frame_buffer, size_buffer);
+	one_frame_buffer[0] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[1] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[2] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[3] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[4] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[5] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[6] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[7] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[8] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[9] 	= 0xFFF0F0F000FF;
+	one_frame_buffer[10]	= 0xFFF0F0F000FF;
+	one_frame_buffer[11]	= 0xFFF0F0F000FF;
+	one_frame_buffer[12]	= 0xFFF0F0F000FF;
+	one_frame_buffer[13]	= 0xFFF0F0F000FF;
+	one_frame_buffer[14]	= 0xFFF0F0F000FF;
+	one_frame_buffer[15]	= 0xFFF0F0F000FF;
+	one_frame_buffer[16]	= 0xFFF0F0F000FF;
+	one_frame_buffer[17]	= 0xFFF0F0F000FF;
+	one_frame_buffer[18]	= 0xFFF0F0F000FF;
+	one_frame_buffer[19]	= 0xFFF0F0F000FF;
+	one_frame_buffer[20]	= 0xFFF0F0F000FF;
+	one_frame_buffer[21]	= 0xFFF0F0F000FF;
+	one_frame_buffer[22]	= 0xFFF0F0F000FF;
+	one_frame_buffer[23]	= 0xFFF0F0F000FF;
+	one_frame_buffer[24]	= 0xFFF0F0F000FF;
+	one_frame_buffer[25]	= 0xFFF0F0F000FF;
+	one_frame_buffer[26]	= 0xFFF0F0F000FF;
+	one_frame_buffer[27]	= 0xFFF0F0F000FF;
+	one_frame_buffer[28]	= 0xFFF0F0F000FF;
+	one_frame_buffer[29]	= 0xFFF0F0F000FF;
+	one_frame_buffer[30]	= 0xFFF0F0F000FF;
+	one_frame_buffer[31]	= 0xFFF0F0F000FF;
 
+	//one_frame_buffer[32] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[33] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[34] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[35] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[36] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[37] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[38] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[39] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[40] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[41] 	= 0xFFF0F0F000FF;
+	//one_frame_buffer[42]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[43]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[44]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[45]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[46]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[47]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[48]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[49]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[50]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[51]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[52]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[53]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[54]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[55]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[56]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[57]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[58]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[59]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[60]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[61]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[62]	= 0xFFF0F0F000FF;
+	//one_frame_buffer[63]	= 0xFFF0F0F000FF;
+	
 	int fd_data_dev = open("/dev/matrix-data",O_WRONLY);
 
 	if( fd_data_dev < 0 ) {
