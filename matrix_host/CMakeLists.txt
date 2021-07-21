@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(matrix_host LANGUAGES C CXX)
+project(matrix_host LANGUAGES CXX)
 
-add_executable(matrix_host main.cpp)
+
+add_executable(matrix_host main.cpp )
 
 find_package( OpenCV REQUIRED )
 
