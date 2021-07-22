@@ -12,6 +12,8 @@ set(CMAKE_CXX_FLAGS "-Wall -Werror")
 
 add_executable(matrix_host main.cpp mem_one_frame.cpp)
 
+# OPEN_CV
+
 find_package( OpenCV REQUIRED )
 
 include_directories( ${OpenCV_INCLUDE_DIRS} )

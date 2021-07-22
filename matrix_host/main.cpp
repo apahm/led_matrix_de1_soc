@@ -30,7 +30,7 @@ int main()
     
     for (size_t i = 0; i < 1024; i++)
     {
-        buffer[i] = 0x0;
+        buffer.at(i) = 0x0;
     }
     
     mem(buffer,rgb_vector);
