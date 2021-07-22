@@ -12,10 +12,6 @@ set(CMAKE_CXX_FLAGS "-Wall -Werror")
 
 add_executable(matrix_host main.cpp mem_one_frame.cpp)
 
-add_compile_definitions(_GLIBCXX_DEBUG)
-
-add_compile_definitions(_GLIBCXX_DEBUG_PEDANTIC)
-
 find_package( OpenCV REQUIRED )
 
 include_directories( ${OpenCV_INCLUDE_DIRS} )
