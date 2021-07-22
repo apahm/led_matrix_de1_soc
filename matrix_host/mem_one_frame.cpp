@@ -1,6 +1,35 @@
 #include "mem_one_frame.h"
+#include <iostream>
+#include <QtNetwork/qudpsocket.h>
+#include <QtCore/qdebug.h>
+#include <QtCore/qcoreapplication.h>
 
-void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
+int sender_one_frame(std::vector<uint64> &buffer)
+{
+    QUdpSocket socket;
+    QHostAddress ip_send("192.168.1.43");
+    uint16_t port = 8080;
+
+    // Buffer for send
+
+    char part_send[512];
+    uint8_t number_of_transfer = 16;
+    uint32_t buffer_iterator = 0;
+    
+    for (size_t i = 0; i < number_of_transfer; i++)
+    {
+        buffer_iterator = i * 64;
+        memcpy(part_send,&buffer.at(buffer_iterator),512);
+        if(socket.writeDatagram(part_send, 512, ip_send, port) != 512)
+        {
+            std::cout << "writeDatagram() failed." << std::endl;
+        }
+    }
+
+    return 0;
+}
+
+void mem(std::vector<uint64_t> &buffer, std::vector<cv::Mat> &rgb_vector)
 {
     uint8_t iterator = 7;
     uint64_t iter_low = 0;
@@ -13,7 +42,7 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
             iterator = 7;
             for (ssize_t k = 0; k < 32; k++)
             {
-                buffer[k + 128 * iter_low + j * 32] |= (uint64_t)((( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4) | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )));
+                buffer.at(k + 128 * iter_low + j * 32) |= (uint64_t)((( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4) | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )));
                 if(iterator <= 7 && iterator > 0)
                     iterator--;
                 else if(iterator == 0)
@@ -41,7 +70,7 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
             iterator = 7;
             for (ssize_t k = 64; k < 96; k++)
             {
-                buffer[k + 128 * iter_high + j * 32] |= (uint64_t)((( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
+                buffer.at(k + 128 * iter_high + j * 32) |= (uint64_t)((( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
                 | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) 
                 | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )));
                 if(iterator <= 7 && iterator > 0)
@@ -72,7 +101,7 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
             iterator = 7;
             for (ssize_t k = 0; k < 32; k++)
             {
-                buffer[k + 128 * iter_low + j * 32] |= (uint64_t)((( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4) | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )) << 12);
+                buffer.at(k + 128 * iter_low + j * 32) |= (uint64_t)((( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4) | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )) << 12);
                 if(iterator <= 7 && iterator > 0)
                     iterator--;
                 else if(iterator == 0)
@@ -100,7 +129,7 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
             iterator = 7;
             for (ssize_t k = 64; k < 96; k++)
             {
-                buffer[k + 128 * iter_high + j * 32] |= (uint64_t)((( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
+                buffer.at(k + 128 * iter_high + j * 32) |= (uint64_t)((( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
                 | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) 
                 | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )) << 12);
                 if(iterator <= 7 && iterator > 0)
@@ -132,7 +161,7 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
             iterator = 7;
             for (ssize_t k = 0; k < 32; k++)
             {
-                buffer[k + 128 * iter_low + j * 32] |= 0xFFF000000 &((uint64_t)(( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
+                buffer.at(k + 128 * iter_low + j * 32) |= 0xFFF000000 &((uint64_t)(( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
                 | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) 
                 | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )) << 24);
                 if(iterator <= 7 && iterator > 0)
@@ -162,7 +191,7 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
             iterator = 7;
             for (ssize_t k = 64; k < 96; k++)
             {
-                buffer[k + 128 * iter_high + j * 32] |= 0xFFF000000 &((uint64_t)(( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
+                buffer.at(k + 128 * iter_high + j * 32) |= 0xFFF000000 &((uint64_t)(( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
                 | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) 
                 | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )) << 24);
                 if(iterator <= 7 && iterator > 0)
@@ -194,7 +223,7 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
             iterator = 7;
             for (ssize_t k = 0; k < 32; k++)
             {
-                buffer[k + 128 * iter_low + j * 32] |= (uint64_t)(( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
+                buffer.at(k + 128 * iter_low + j * 32) |= (uint64_t)(( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
                 | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) 
                 | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )) << 36;
                 if(iterator <= 7 && iterator > 0)
@@ -224,7 +253,7 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
             iterator = 7;
             for (int k = 64; k < 96; k++)
             {
-                buffer[k + 128 * iter_high + j * 32] |= (uint64_t)(( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
+                buffer.at(k + 128 * iter_high + j * 32) |= (uint64_t)(( ( 0xF0 & rgb_vector[0].at<uint8_t>(i,iterator + j * 32)) >> 4)
                 | (0xF0 & rgb_vector[1].at<uint8_t>(i,iterator + j * 32)) 
                 | ( ( 0xF0 & rgb_vector[2].at<uint8_t>(i,iterator + j * 32)) << 4 )) << 36;
                 if(iterator <= 7 && iterator > 0)
@@ -249,4 +278,5 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
     
     iter_high = 0;
     iter_low = 0;
+    
 }

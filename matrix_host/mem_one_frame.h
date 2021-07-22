@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <opencv2/core/core.hpp>
 
-void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector);
+
+int sender_one_frame(std::vector<uint64> &buffer);
+void mem(std::vector<uint64_t> &buffer,std::vector<cv::Mat> &rgb_vector);
 
 #endif

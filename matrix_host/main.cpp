@@ -7,40 +7,10 @@
 #include <vector>
 #include <stddef.h>
 #include <stdint.h>
-#include <QtNetwork/qudpsocket.h>
-#include <QtCore/qdebug.h>
-#include <QtCore/qcoreapplication.h>
-
 
 #include "mem_one_frame.h"
 
 #define MATRIX_SIZE 64
-
-
-int sender(uint64_t *buffer)
-{
-    QUdpSocket socket;
-    QHostAddress ip_send("192.168.1.43");
-    uint16_t port = 8080;
-
-    // Buffer for send
-
-    char part_send[512];
-    uint8_t number_of_transfer = 16;
-    uint32_t buffer_iterator = 0;
-    
-    for (size_t i = 0; i < number_of_transfer; i++)
-    {
-        buffer_iterator = i * 64;
-        memcpy(part_send,&buffer[buffer_iterator],512);
-        if(socket.writeDatagram(part_send, 512, ip_send, port) != 512)
-        {
-            std::cout << "writeDatagram() failed." << std::endl;
-        }
-    }
-
-    return 0;
-}
 
 int main()
 {   
@@ -56,7 +26,7 @@ int main()
     std::vector<cv::Mat> rgb_vector;
     cv::split(input, rgb_vector);
     
-    uint64_t buffer[1024];
+    std::vector<uint64_t> buffer(1024,0);
     
     for (size_t i = 0; i < 1024; i++)
     {
@@ -65,7 +35,7 @@ int main()
     
     mem(buffer,rgb_vector);
     
-    sender(buffer);
+    sender_one_frame(buffer);
 
     printf("Succesfuly!\n");
     return 0;
