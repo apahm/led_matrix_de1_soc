@@ -11,9 +11,11 @@
 #include <QtCore/qdebug.h>
 #include <QtCore/qcoreapplication.h>
 
+
 #include "mem_one_frame.h"
 
 #define MATRIX_SIZE 64
+
 
 int sender(uint64_t *buffer)
 {
