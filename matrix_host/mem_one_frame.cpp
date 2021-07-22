@@ -3,7 +3,8 @@
 void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
 {
     uint8_t iterator = 7;
-    uint64_t iter_low, iter_high = 0;
+    uint64_t iter_low = 0;
+    uint64_t iter_high = 0;
 
     for (ssize_t i =  32; i < 40; i++)
     {
