@@ -217,7 +217,7 @@ void mem(uint64_t *buffer,std::vector<cv::Mat> &rgb_vector)
         iter_low += 1;
     }
     
-    for (int i = 24; i < 36; i++)
+    for (int i = 24; i < 32; i++)
     {
         for (int j = 0; j < 2; j++)
         {

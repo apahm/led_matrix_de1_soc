@@ -8,14 +8,14 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <QtNetwork/qudpsocket.h>
-#include <qdebug.h>
-#include <qcoreapplication.h>
+#include <QtCore/qdebug.h>
+#include <QtCore/qcoreapplication.h>
 
 #include "mem_one_frame.h"
 
 #define MATRIX_SIZE 64
 
-void sender(uint64_t *buffer)
+int sender(uint64_t *buffer)
 {
     QUdpSocket socket;
     QHostAddress ip_send("192.168.1.43");
@@ -30,10 +30,14 @@ void sender(uint64_t *buffer)
     for (size_t i = 0; i < number_of_transfer; i++)
     {
         buffer_iterator = i * 64;
-        std::cout << (int)buffer_iterator << std::endl;
         memcpy(part_send,&buffer[buffer_iterator],512);
-        socket.writeDatagram(part_send, 512, ip_send, port);
+        if(socket.writeDatagram(part_send, 512, ip_send, port) != 512)
+        {
+            std::cout << "writeDatagram() failed." << std::endl;
+        }
     }
+
+    return 0;
 }
 
 int main()
