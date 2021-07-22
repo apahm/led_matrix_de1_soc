@@ -31,12 +31,6 @@ int fpga_add_rx_buffer(struct fpga_dev *fpga, uint32_t size)
     dma_addr = dma_addr / 8;
     size = size / 8;
 
-    
-    //*(uint64_t *)addr = 0x100020004000800;
-    //printk("addr = 0x%p, value = 0x%llx\n",addr, *(uint64_t *)addr);
-    
-
-
     //Write DMA address to FPGA
     printk( KERN_DEBUG "Write fpga dma_addr: register 0x4, dma_addr=0x%x\n",dma_addr);
     fpga_write_reg(fpga, 0x4, dma_addr);
