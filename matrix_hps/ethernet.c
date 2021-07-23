@@ -56,7 +56,7 @@ int receive_buffer(int sockfd,uint8_t *buffer, ssize_t size_of_buffer)
 	len = sizeof(cliaddr); 
 
 	ret = recvfrom(sockfd, buffer, size_of_buffer, MSG_WAITALL, ( struct sockaddr *) &cliaddr,&len);
-	buffer[ret] = '\0';
+	
 	return ret;
 }
 

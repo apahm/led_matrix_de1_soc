@@ -1,7 +1,8 @@
 #ifndef NYAN_CAT
 #define NYAN_CAT
 #include <stdint.h>
+#include <stddef.h>
 
-void nayn_cat_buffer(uint64_t *one_frame_buffer, ssize_t size);
+void grad_buffer(uint64_t *one_frame_buffer, size_t size);
 
 #endif

@@ -15,9 +15,7 @@
 int main()
 {   
     // Get the image 
-    cv::Mat input = cv::imread("/home/alex/matrix/matrix_host/test_image/grad.jpg", cv::IMREAD_COLOR); 
-    
-    cv::flip(input,input,1);
+    cv::Mat input = cv::imread("/home/alex/matrix/matrix_host/test_image/20.jpg", cv::IMREAD_COLOR); 
     
     // Resize image
     cv::resize(input, input, cv::Size(64, 64));
